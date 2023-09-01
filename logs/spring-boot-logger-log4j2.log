@@ -1,5 +1,31 @@
-2023-09-01 10:11:38,382 WARN c.z.h.p.HikariPool$HouseKeeper [HikariPool-1 housekeeper] HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=30m32s295ms732µs800ns).
-2023-09-01 13:34:10,951 WARN c.z.h.p.HikariPool$HouseKeeper [HikariPool-1 housekeeper] HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m59s227ms106µs600ns).
-2023-09-01 14:19:07,495 INFO o.s.o.j.AbstractEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
-2023-09-01 14:19:07,523 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
-2023-09-01 14:19:07,542 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.
+2023-08-31 15:23:43,048 INFO o.h.v.i.u.Version [background-preinit] HV000001: Hibernate Validator 8.0.1.Final
+2023-08-31 15:23:43,226 INFO o.s.b.StartupInfoLogger [main] Starting EcommerceApplication using Java 17.0.8 with PID 58872 (C:\Users\aleksander01.TRN\IdeaProjects\EcommerceApp\target\classes started by aleksander01.TRN in C:\Users\aleksander01.TRN\IdeaProjects\EcommerceApp)
+2023-08-31 15:23:43,240 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v3.1.2, Spring v6.0.11
+2023-08-31 15:23:43,246 INFO o.s.b.SpringApplication [main] No active profile set, falling back to 1 default profile: "default"
+2023-08-31 15:23:45,427 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-31 15:23:45,777 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 311 ms. Found 3 JPA repository interfaces.
+2023-08-31 15:23:48,305 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat initialized with port(s): 8080 (http)
+2023-08-31 15:23:48,330 INFO o.a.j.l.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-8080"]
+2023-08-31 15:23:48,337 INFO o.a.j.l.DirectJDKLog [main] Starting service [Tomcat]
+2023-08-31 15:23:48,338 INFO o.a.j.l.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/10.1.11]
+2023-08-31 15:23:48,681 INFO o.a.j.l.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
+2023-08-31 15:23:48,688 INFO o.s.b.w.s.c.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 5286 ms
+2023-08-31 15:23:49,272 INFO o.h.j.i.u.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-08-31 15:23:49,494 INFO o.h.Version [main] HHH000412: Hibernate ORM core version 6.2.6.Final
+2023-08-31 15:23:49,504 INFO o.h.c.Environment [main] HHH000406: Using bytecode reflection optimizer
+2023-08-31 15:23:50,071 INFO o.h.b.i.BytecodeProviderInitiator [main] HHH000021: Bytecode provider name : bytebuddy
+2023-08-31 15:23:50,569 INFO o.s.o.j.p.SpringPersistenceUnitInfo [main] No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-08-31 15:23:50,655 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Starting...
+2023-08-31 15:23:51,833 INFO c.z.h.p.HikariPool [main] HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@40bf0e15
+2023-08-31 15:23:51,839 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Start completed.
+2023-08-31 15:23:52,858 INFO o.h.b.i.BytecodeProviderInitiator [main] HHH000021: Bytecode provider name : bytebuddy
+2023-08-31 15:23:54,940 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [main] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-31 15:23:55,211 INFO o.s.o.j.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-08-31 15:23:56,500 WARN o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-08-31 15:23:57,772 INFO o.s.s.w.DefaultSecurityFilterChain [main] Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@6e68ccc9, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1784fcab, org.springframework.security.web.context.SecurityContextHolderFilter@af04d6d, org.springframework.security.web.header.HeaderWriterFilter@1d160161, org.springframework.security.web.csrf.CsrfFilter@373c8f35, org.springframework.security.web.authentication.logout.LogoutFilter@7fb313e3, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@277dddcf, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@77430c79, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@63e4bbf9, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@55159007, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3816efab, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@f3e6876, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@455cb6d9, org.springframework.security.web.access.ExceptionTranslationFilter@c651286, org.springframework.security.web.access.intercept.AuthorizationFilter@5825932c]
+2023-08-31 15:23:57,882 INFO o.a.j.l.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-8080"]
+2023-08-31 15:23:57,952 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat started on port(s): 8080 (http) with context path ''
+2023-08-31 15:23:57,974 INFO o.s.b.StartupInfoLogger [main] Started EcommerceApplication in 15.905 seconds (process running for 19.494)
+2023-08-31 15:58:31,655 INFO o.s.o.j.AbstractEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-08-31 15:58:31,682 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
+2023-08-31 15:58:31,771 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.
