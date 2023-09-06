@@ -57,16 +57,16 @@ public class Order {
     @OnDelete(
             action = OnDeleteAction.CASCADE
     )
-    private User user;
+    private Customer customer;
 
-    public Order(OrderStatus orderStatus, LocalDate orderDate, ArrayList<OrderedProduct> orderedProducts, User user) {
+    public Order(OrderStatus orderStatus, LocalDate orderDate, ArrayList<OrderedProduct> orderedProducts, Customer customer) {
         this.orderStatus = orderStatus;
         this.orderDate = orderDate;
         this.orderedProducts = orderedProducts;
-        this.user = user;
+        this.customer = customer;
     }
 
     public String toString() {
-        return "Order{orderId=" + this.orderId + ", orderStatus=" + this.orderStatus + ", orderDate=" + this.orderDate + ", orderedProducts=" + this.orderedProducts + ", user=" + this.user + "}";
+        return "Order{orderId=" + this.orderId + ", orderStatus=" + this.orderStatus + ", orderDate=" + this.orderDate + ", orderedProducts=" + this.orderedProducts + ", customer=" + this.customer + "}";
     }
 }

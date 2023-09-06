@@ -14,8 +14,6 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8081")
-@RequestMapping("api")
 public class OrderController {
     @Autowired
     OrderRepository orderRepository;
@@ -39,10 +37,10 @@ public class OrderController {
         return orderData.isPresent() ? new ResponseEntity((Order)orderData.get(), HttpStatus.OK) : new ResponseEntity(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping({"/orders/{userId}"})
-    public ResponseEntity<ArrayList<Order>> getOrdersByUserId(@PathVariable("userId") Integer userId) {
+    @GetMapping({"/orders/{customerId}"})
+    public ResponseEntity<ArrayList<Order>> getOrdersByCustomerId(@PathVariable("customerId") Integer customerId) {
         try {
-            ArrayList<Order> orders = this.orderRepository.findByUserUserId(userId);
+            ArrayList<Order> orders = this.orderRepository.findByCustomerCustomerId(customerId);
             return orders.isEmpty() ? new ResponseEntity(HttpStatus.NO_CONTENT) : new ResponseEntity(orders, HttpStatus.OK);
         } catch (Exception var3) {
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -52,7 +50,7 @@ public class OrderController {
     @PostMapping({"/orders"})
     public ResponseEntity<Order> createOrder(@RequestBody Order order) {
         try {
-            Order _order = (Order)this.orderRepository.save(new Order(OrderStatus.PENDING, LocalDate.now(), order.getOrderedProducts(), order.getUser()));
+            Order _order = (Order)this.orderRepository.save(new Order(OrderStatus.IN_PROGRESS, LocalDate.now(), order.getOrderedProducts(), order.getCustomer()));
             return new ResponseEntity(_order, HttpStatus.CREATED);
         } catch (Exception var3) {
             return new ResponseEntity((MultiValueMap)null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -72,22 +70,13 @@ public class OrderController {
     }
 
     @DeleteMapping({"/orders/{id}"})
-    public ResponseEntity<HttpStatus> deleteOrder(@PathVariable("id") long id) {
+    public ResponseEntity<HttpStatus> cancelOrder(@PathVariable("id") long id) {
         try {
-            this.orderRepository.deleteById(id);
-            return new ResponseEntity(HttpStatus.NO_CONTENT);
+            this.orderRepository.findById(id);
+            return new ResponseEntity(HttpStatus.ACCEPTED);
         } catch (Exception var4) {
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @DeleteMapping({"/orders"})
-    public ResponseEntity<HttpStatus> deleteAllOrders() {
-        try {
-            this.orderRepository.deleteAll();
-            return new ResponseEntity(HttpStatus.NO_CONTENT);
-        } catch (Exception var2) {
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
 }
