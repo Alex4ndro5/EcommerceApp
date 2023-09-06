@@ -1,3 +1,4 @@
+/*
 package com.infy.EcommerceApp.security.basicAuth;
 
 import org.springframework.context.annotation.Bean;
@@ -44,3 +45,4 @@ public class BasicAuthWebSecurityConfiguration {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 }
+*/
