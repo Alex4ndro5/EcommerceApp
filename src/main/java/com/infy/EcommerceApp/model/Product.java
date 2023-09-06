@@ -31,7 +31,7 @@ public class Product {
     @GeneratedValue(
             strategy = GenerationType.AUTO
     )
-    private Integer productId;
+    private Long productId;
     @Column(
             name = "product_name",
             nullable = false

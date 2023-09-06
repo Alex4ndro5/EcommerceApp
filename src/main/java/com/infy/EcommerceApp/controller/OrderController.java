@@ -1,82 +1,101 @@
 package com.infy.EcommerceApp.controller;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Optional;
+import java.util.List;
+import java.util.stream.Collectors;
 
+import com.infy.EcommerceApp.assemblers.OrderModelAssembler;
 import com.infy.EcommerceApp.enums.OrderStatus;
+import com.infy.EcommerceApp.exceptions.OrderNotFoundException;
 import com.infy.EcommerceApp.model.Order;
 import com.infy.EcommerceApp.repository.OrderRepository;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.MediaTypes;
+import org.springframework.hateoas.mediatype.problem.Problem;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 public class OrderController {
     @Autowired
     OrderRepository orderRepository;
+    @Autowired
+    OrderModelAssembler orderModelAssembler;
 
     public OrderController() {
     }
 
     @GetMapping({"/orders"})
-    public ResponseEntity<ArrayList<Order>> getAllOrders() {
-        try {
-            ArrayList<Order> orders = (ArrayList)this.orderRepository.findAll();
-            return orders.isEmpty() ? new ResponseEntity(HttpStatus.NO_CONTENT) : new ResponseEntity(orders, HttpStatus.OK);
-        } catch (Exception var2) {
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public ResponseEntity<CollectionModel<EntityModel<Order>>> getAllOrders() {
+        List<EntityModel<Order>> orders = orderRepository.findAll().stream() //
+                .map(orderModelAssembler::toModel) //
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(CollectionModel.of(orders, linkTo(methodOn(OrderController.class).getAllOrders()).withSelfRel()));
     }
 
+    @SneakyThrows
     @GetMapping({"/orders/{id}"})
-    public ResponseEntity<Order> getOrderById(@PathVariable("id") Long id) {
-        Optional<Order> orderData = this.orderRepository.findById(id);
-        return orderData.isPresent() ? new ResponseEntity((Order)orderData.get(), HttpStatus.OK) : new ResponseEntity(HttpStatus.NOT_FOUND);
+    public ResponseEntity<EntityModel<Order>> getOrderById(@PathVariable("id") Long id) {
+
+        Order order = orderRepository.findById(id)
+                .orElseThrow(() -> new OrderNotFoundException(id));
+        return ResponseEntity.ok(orderModelAssembler.toModel(order));
     }
 
-    @GetMapping({"/orders/{customerId}"})
-    public ResponseEntity<ArrayList<Order>> getOrdersByCustomerId(@PathVariable("customerId") Integer customerId) {
-        try {
-            ArrayList<Order> orders = this.orderRepository.findByCustomerCustomerId(customerId);
-            return orders.isEmpty() ? new ResponseEntity(HttpStatus.NO_CONTENT) : new ResponseEntity(orders, HttpStatus.OK);
-        } catch (Exception var3) {
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    @PostMapping("/orders/create")
+    ResponseEntity<EntityModel<Order>> createOrder(@RequestBody Order order) {
+
+        order.setOrderStatus(OrderStatus.IN_PROGRESS);
+        Order newOrder = orderRepository.save(order);
+
+        return ResponseEntity //
+                .created(linkTo(methodOn(OrderController.class).getOrderById(newOrder.getOrderId())).toUri()) //
+                .body(orderModelAssembler.toModel(newOrder));
     }
 
-    @PostMapping({"/orders"})
-    public ResponseEntity<Order> createOrder(@RequestBody Order order) {
-        try {
-            Order _order = (Order)this.orderRepository.save(new Order(OrderStatus.IN_PROGRESS, LocalDate.now(), order.getOrderedProducts(), order.getCustomer()));
-            return new ResponseEntity(_order, HttpStatus.CREATED);
-        } catch (Exception var3) {
-            return new ResponseEntity((MultiValueMap)null, HttpStatus.INTERNAL_SERVER_ERROR);
+    @SneakyThrows
+    @PutMapping({"/orders/{id}/complete"})
+    public ResponseEntity<?> completeOrder(@PathVariable("id") Long id) {
+        Order order = orderRepository.findById(id) //
+                .orElseThrow(() -> new OrderNotFoundException(id));
+        if (order.getOrderStatus() == OrderStatus.IN_PROGRESS) {
+            order.setOrderStatus(OrderStatus.COMPLETED);
+            return ResponseEntity.ok(orderModelAssembler.toModel(orderRepository.save(order)));
         }
+        return ResponseEntity //
+                .status(HttpStatus.METHOD_NOT_ALLOWED) //
+                .header(HttpHeaders.CONTENT_TYPE, MediaTypes.HTTP_PROBLEM_DETAILS_JSON_VALUE) //
+                .body(Problem.create() //
+                        .withTitle("Method not allowed") //
+                        .withDetail("You can't complete an order that is in the " + order.getOrderStatus() + " status"));
     }
 
-    @PutMapping({"/orders/{id}"})
-    public ResponseEntity<Order> updateOrder(@PathVariable("id") Long id, @RequestBody Order order) {
-        Optional<Order> orderData = this.orderRepository.findById(id);
-        if (orderData.isPresent()) {
-            Order _order = (Order)orderData.get();
-            _order.setOrderStatus(order.getOrderStatus());
-            return new ResponseEntity((Order)this.orderRepository.save(_order), HttpStatus.OK);
-        } else {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
-        }
-    }
+    @SneakyThrows
+    @DeleteMapping("/orders/{id}/cancel")
+    public ResponseEntity<?> cancelOrder(@PathVariable Long id) {
 
-    @DeleteMapping({"/orders/{id}"})
-    public ResponseEntity<HttpStatus> cancelOrder(@PathVariable("id") long id) {
-        try {
-            this.orderRepository.findById(id);
-            return new ResponseEntity(HttpStatus.ACCEPTED);
-        } catch (Exception var4) {
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        Order order = orderRepository.findById(id) //
+                .orElseThrow(() -> new OrderNotFoundException(id));
+
+        if (order.getOrderStatus() == OrderStatus.IN_PROGRESS) {
+            order.setOrderStatus(OrderStatus.CANCELLED);
+            return ResponseEntity.ok(orderModelAssembler.toModel(orderRepository.save(order)));
         }
+
+        return ResponseEntity //
+                .status(HttpStatus.METHOD_NOT_ALLOWED) //
+                .header(HttpHeaders.CONTENT_TYPE, MediaTypes.HTTP_PROBLEM_DETAILS_JSON_VALUE) //
+                .body(Problem.create() //
+                        .withTitle("Method not allowed") //
+                        .withDetail("You can't cancel an order that is in the " + order.getOrderStatus() + " status"));
     }
 
 }
