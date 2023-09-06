@@ -1,6 +1,6 @@
 package com.infy.EcommerceApp.enums;
 
-public enum UserRole {
+public enum CustomerRole {
     ADMIN,
-    USER;
+    CUSTOMER;
 }

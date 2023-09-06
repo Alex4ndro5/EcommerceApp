@@ -1,6 +1,6 @@
 package com.infy.EcommerceApp.enums;
 
-public enum UserGender {
+public enum CustomerGender {
     MALE,
     FEMALE,
     OTHER;

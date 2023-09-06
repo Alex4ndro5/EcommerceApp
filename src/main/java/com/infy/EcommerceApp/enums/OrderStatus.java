@@ -1,9 +1,7 @@
 package com.infy.EcommerceApp.enums;
 
 public enum OrderStatus {
-    PENDING,
-    PAID,
-    SHIPPED,
-    DELIVERED,
-    CANCELED;
+    IN_PROGRESS,
+    COMPLETED,
+    CANCELLED
 }
