@@ -32,7 +32,7 @@ public class LoggerAspect {
         String methodName = jp.getSignature().getName();
         Object[] array = jp.getArgs();
 
-        logger.info(className + " "+ methodName + " " + mapper.writeValueAsString(array));
+        logger.info(className.substring(32) + " "+ methodName + " " + mapper.writeValueAsString(array));
 
     }
 
