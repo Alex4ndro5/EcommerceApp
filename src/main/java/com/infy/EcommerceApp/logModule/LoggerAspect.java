@@ -20,11 +20,11 @@ import org.springframework.stereotype.Component;
 public class LoggerAspect {
     private static final Logger logger = LogManager.getLogger(LoggerAspect.class.getName());
 
-    @Pointcut(value="execution(* com.infy.EcommerceApp.controller.*.*(..) )")
+    /*@Pointcut(value="execution(* com.infy.EcommerceApp.controller.*.*(..) )")
     public void myPointCut () {
-    }
+    }*/
 
-    @AfterReturning("myPointCut()")
+    /*@AfterReturning("myPointCut()")
     public void applicationLogger(JoinPoint jp) throws JsonProcessingException {
 
         ObjectMapper mapper = new ObjectMapper();
@@ -35,8 +35,9 @@ public class LoggerAspect {
         logger.info(className.substring(39) + " "+ methodName + " " + mapper.writeValueAsString(array));
 
     }
+    */
 
-    @AfterThrowing("myPointCut()")
+   @AfterThrowing(value="execution(* com.infy.EcommerceApp.controller.*.*(..) )", throwing = "ex")
     public void exceptionsLogger(JoinPoint jp, Exception ex) {
 
         String className = jp.getTarget().getClass().toString();
