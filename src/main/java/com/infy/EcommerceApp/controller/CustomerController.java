@@ -1,10 +1,15 @@
 package com.infy.EcommerceApp.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+import com.infy.EcommerceApp.assemblers.CustomerModelAssembler;
+import com.infy.EcommerceApp.exceptions.CustomerNotFoundException;
 import com.infy.EcommerceApp.model.Customer;
 import com.infy.EcommerceApp.repository.CustomerRepository;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -19,73 +24,78 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 @RestController
 public class CustomerController {
     @Autowired
     private CustomerRepository customerRepository;
+    @Autowired
+    private CustomerModelAssembler customerModelAssembler;
 
     public CustomerController() {
     }
 
-    @GetMapping({"/customers"})
+    @GetMapping("/customers")
     public ResponseEntity<CollectionModel<EntityModel<Customer>>> getAllCustomers() {
-        try {
-            ArrayList<Customer> customers = (ArrayList)this.customerRepository.findAll();
-            return customers.isEmpty() ? new ResponseEntity(HttpStatus.NO_CONTENT) : new ResponseEntity(customers, HttpStatus.OK);
-        } catch (Exception var2) {
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        List<EntityModel<Customer>> customers = customerRepository.findAll().stream()
+                .map(customerModelAssembler::toModel)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(CollectionModel.of(customers, linkTo(methodOn(CustomerController.class).getAllCustomers()).withSelfRel()));
     }
 
-    @GetMapping({"/customers/{id}"})
-    public ResponseEntity<Customer> getCustomerById(@PathVariable("id") Long id) {
-        Optional<Customer> customerData = this.customerRepository.findById(id);
-        return customerData.isPresent() ? new ResponseEntity((Customer)customerData.get(), HttpStatus.OK) : new ResponseEntity(HttpStatus.NOT_FOUND);
+    @SneakyThrows
+    @GetMapping("/customers/{id}")
+    public ResponseEntity<EntityModel<Customer>> getCustomerById(@PathVariable("id") Long id) {
+        Customer customer = customerRepository.findById(id)
+                .orElseThrow(() -> new CustomerNotFoundException(id));
+        return ResponseEntity.ok(customerModelAssembler.toModel(customer));
     }
 
-    @PostMapping({"/customers"})
+    @PostMapping("/customers")
     public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer) {
-        try {
-            Customer _customer = (Customer)this.customerRepository.save(new Customer(customer.getCustomerName(), customer.getCustomerPassword(), customer.getCustomerBirthdate(), customer.getCustomerEmail(), customer.getCustomerAddress()));
-            return new ResponseEntity(_customer, HttpStatus.CREATED);
-        } catch (Exception var3) {
-            return new ResponseEntity((MultiValueMap)null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        customer = customerRepository.save(customer);
+        return ResponseEntity.created(linkTo(methodOn(CustomerController.class).getCustomerById(customer.getCustomerId())).toUri())
+                .body(customer);
     }
 
-    @PutMapping({"/customers/{id}"})
+    @PutMapping("/customers/{id}")
     public ResponseEntity<Customer> updateCustomer(@PathVariable("id") Long id, @RequestBody Customer customer) {
-        Optional<Customer> customerData = this.customerRepository.findById(id);
+        Optional<Customer> customerData = customerRepository.findById(id);
         if (customerData.isPresent()) {
-            Customer _customer = (Customer)customerData.get();
-            _customer.setCustomerName(customer.getCustomerName());
-            _customer.setCustomerPassword(customer.getCustomerPassword());
-            _customer.setCustomerBirthdate(customer.getCustomerBirthdate());
-            _customer.setCustomerEmail(customer.getCustomerEmail());
-            _customer.setCustomerAddress(customer.getCustomerAddress());
-            return new ResponseEntity((Customer)this.customerRepository.save(_customer), HttpStatus.OK);
+            Customer existingCustomer = customerData.get();
+            existingCustomer.setCustomerName(customer.getCustomerName());
+            existingCustomer.setCustomerPassword(customer.getCustomerPassword());
+            existingCustomer.setCustomerBirthdate(customer.getCustomerBirthdate());
+            existingCustomer.setCustomerEmail(customer.getCustomerEmail());
+            existingCustomer.setCustomerAddress(customer.getCustomerAddress());
+
+            return ResponseEntity.ok(customerRepository.save(existingCustomer));
         } else {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            return ResponseEntity.notFound().build();
         }
     }
 
-    @DeleteMapping({"/customers/{id}"})
+    @DeleteMapping("/customers/{id}")
     public ResponseEntity<HttpStatus> deleteCustomer(@PathVariable("id") long id) {
         try {
-            this.customerRepository.deleteById(id);
-            return new ResponseEntity(HttpStatus.NO_CONTENT);
-        } catch (Exception var4) {
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+            customerRepository.deleteById(id);
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
         }
     }
 
-    @DeleteMapping({"/customers"})
+    @DeleteMapping("/customers")
     public ResponseEntity<HttpStatus> deleteAllCustomers() {
         try {
-            this.customerRepository.deleteAll();
-            return new ResponseEntity(HttpStatus.NO_CONTENT);
-        } catch (Exception var2) {
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+            customerRepository.deleteAll();
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
         }
     }
 }
+

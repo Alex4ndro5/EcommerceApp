@@ -35,7 +35,7 @@ public class Customer {
     @GeneratedValue(
             strategy = GenerationType.AUTO
     )
-    private Integer customerId;
+    private Long customerId;
     @Column(
             name = "customer_name",
             nullable = false
