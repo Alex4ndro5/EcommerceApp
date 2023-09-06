@@ -32,16 +32,18 @@ public class LoggerAspect {
         String methodName = jp.getSignature().getName();
         Object[] array = jp.getArgs();
 
-        logger.info(className.substring(32) + " "+ methodName + " " + mapper.writeValueAsString(array));
+        logger.info(className.substring(39) + " "+ methodName + " " + mapper.writeValueAsString(array));
 
     }
 
-    /*@AfterThrowing("myPointCut()")
-    public void exceptionsLogger(JoinPoint jp, Exception ex){
+    @AfterThrowing("myPointCut()")
+    public void exceptionsLogger(JoinPoint jp, Exception ex) {
 
         String className = jp.getTarget().getClass().toString();
         String methodName = jp.getSignature().getName();
-*/
+
+        logger.info(className.substring(39) + " " + methodName + " EXCEPTION: " + ex.getMessage());
+    }
     }
 
 
