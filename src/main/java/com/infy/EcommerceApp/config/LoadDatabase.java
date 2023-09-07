@@ -1,4 +1,4 @@
-package com.infy.EcommerceApp;
+package com.infy.EcommerceApp.config;
 
 import com.infy.EcommerceApp.enums.ProductCategory;
 import com.infy.EcommerceApp.enums.ProductManufacturer;

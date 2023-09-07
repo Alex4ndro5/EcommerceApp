@@ -1,53 +1,51 @@
-2023-09-06 14:57:15,880 INFO o.h.v.i.u.Version [background-preinit] HV000001: Hibernate Validator 8.0.1.Final
-2023-09-06 14:57:15,981 INFO o.s.b.StartupInfoLogger [main] Starting EcommerceApplication using Java 17.0.8 with PID 25768 (C:\Users\aleksander01.TRN\IdeaProjects\EcommerceApp\target\classes started by aleksander01.TRN in C:\Users\aleksander01.TRN\IdeaProjects\EcommerceApp)
-2023-09-06 14:57:15,987 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v3.1.2, Spring v6.0.11
-2023-09-06 14:57:15,989 INFO o.s.b.SpringApplication [main] No active profile set, falling back to 1 default profile: "default"
-2023-09-06 14:57:17,496 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2023-09-06 14:57:17,654 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 135 ms. Found 3 JPA repository interfaces.
-2023-09-06 14:57:19,121 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat initialized with port(s): 8080 (http)
-2023-09-06 14:57:19,148 INFO o.a.j.l.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-8080"]
-2023-09-06 14:57:19,156 INFO o.a.j.l.DirectJDKLog [main] Starting service [Tomcat]
-2023-09-06 14:57:19,157 INFO o.a.j.l.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/10.1.11]
-2023-09-06 14:57:19,411 INFO o.a.j.l.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
-2023-09-06 14:57:19,415 INFO o.s.b.w.s.c.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 3346 ms
-2023-09-06 14:57:19,768 INFO o.h.j.i.u.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
-2023-09-06 14:57:19,929 INFO o.h.Version [main] HHH000412: Hibernate ORM core version 6.2.6.Final
-2023-09-06 14:57:19,934 INFO o.h.c.Environment [main] HHH000406: Using bytecode reflection optimizer
-2023-09-06 14:57:20,298 INFO o.h.b.i.BytecodeProviderInitiator [main] HHH000021: Bytecode provider name : bytebuddy
-2023-09-06 14:57:20,673 INFO o.s.o.j.p.SpringPersistenceUnitInfo [main] No LoadTimeWeaver setup: ignoring JPA class transformer
-2023-09-06 14:57:20,725 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Starting...
-2023-09-06 14:57:21,301 INFO c.z.h.p.HikariPool [main] HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4cfc0c48
-2023-09-06 14:57:21,304 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Start completed.
-2023-09-06 14:57:21,961 INFO o.h.b.i.BytecodeProviderInitiator [main] HHH000021: Bytecode provider name : bytebuddy
-2023-09-06 14:57:23,615 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [main] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2023-09-06 14:57:23,771 WARN o.h.e.j.s.SqlExceptionHelper$StandardWarningHandler [main] SQL Warning Code: 0, SQLState: 00000
-2023-09-06 14:57:23,772 WARN o.h.e.j.s.SqlExceptionHelper$StandardWarningHandler [main] constraint "uk_47v7cerfyndk4lx4vcu64cxyl" of relation "customers" does not exist, skipping
-2023-09-06 14:57:23,824 INFO o.s.o.j.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
-2023-09-06 14:57:24,794 WARN o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2023-09-06 14:57:25,610 INFO o.s.s.w.DefaultSecurityFilterChain [main] Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@6915351c, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2ac0cb64, org.springframework.security.web.context.SecurityContextHolderFilter@61a17f3, org.springframework.security.web.header.HeaderWriterFilter@1e65c4d, org.springframework.security.web.csrf.CsrfFilter@202ba60a, org.springframework.security.web.authentication.logout.LogoutFilter@55d98bbb, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@3f7f9d3f, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1a3e8b68, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5935eb9c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7be3a837, org.springframework.security.web.access.ExceptionTranslationFilter@768f2398, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@52e34db]
-2023-09-06 14:57:26,463 INFO o.a.j.l.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-8080"]
-2023-09-06 14:57:26,528 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat started on port(s): 8080 (http) with context path ''
-2023-09-06 14:57:26,547 INFO o.s.b.StartupInfoLogger [main] Started EcommerceApplication in 11.259 seconds (process running for 13.172)
-2023-09-06 14:57:26,731 INFO c.i.E.LoadDatabase [main] Preloading Product{productName='Omen 15', productPrice=1400.0, productCategory=LAPTOP, productManufacturer=HP}
-2023-09-06 14:57:26,738 INFO c.i.E.LoadDatabase [main] Preloading Product{productName='Omen 15', productPrice=1400.0, productCategory=LAPTOP, productManufacturer=HP}
-2023-09-06 14:57:26,743 INFO c.i.E.LoadDatabase [main] Preloading Product{productName='IPhone 8', productPrice=900.0, productCategory=PHONE, productManufacturer=APPLE}
-2023-09-06 14:57:26,748 INFO c.i.E.LoadDatabase [main] Preloading Product{productName='Usb-C Charger', productPrice=50.0, productCategory=OTHER, productManufacturer=OTHER}
-2023-09-06 14:57:26,753 INFO c.i.E.LoadDatabase [main] Preloading Product{productName='Predator 7', productPrice=1250.0, productCategory=LAPTOP, productManufacturer=ACER}
-2023-09-06 14:57:26,757 INFO c.i.E.LoadDatabase [main] Preloading Product{productName='Galaxy S10', productPrice=800.0, productCategory=PHONE, productManufacturer=SAMSUNG}
-2023-09-06 14:57:26,763 INFO c.i.E.LoadDatabase [main] Preloading Product{productName='MacBook Pro', productPrice=1800.0, productCategory=LAPTOP, productManufacturer=APPLE}
-2023-09-06 14:57:26,767 INFO c.i.E.LoadDatabase [main] Preloading Product{productName='Wireless Mouse', productPrice=30.0, productCategory=OTHER, productManufacturer=LENOVO}
-2023-09-06 14:57:26,771 INFO c.i.E.LoadDatabase [main] Preloading Product{productName='ThinkPad X1', productPrice=1500.0, productCategory=LAPTOP, productManufacturer=LENOVO}
-2023-09-06 14:57:26,776 INFO c.i.E.LoadDatabase [main] Preloading Product{productName='HTC 9', productPrice=700.0, productCategory=PHONE, productManufacturer=HTC}
-2023-09-06 14:57:26,780 INFO c.i.E.LoadDatabase [main] Preloading Product{productName='Bluetooth Speaker', productPrice=60.0, productCategory=OTHER, productManufacturer=OTHER}
-2023-09-06 14:57:26,785 INFO c.i.E.LoadDatabase [main] Preloading Product{productName='Inspiron 15', productPrice=900.0, productCategory=LAPTOP, productManufacturer=DELL}
-2023-09-06 14:57:26,789 INFO c.i.E.LoadDatabase [main] Preloading Product{productName='Pixel 5', productPrice=600.0, productCategory=PHONE, productManufacturer=GOOGLE}
-2023-09-06 14:57:26,795 INFO c.i.E.LoadDatabase [main] Preloading Product{productName='Wireless Keyboard', productPrice=40.0, productCategory=OTHER, productManufacturer=MICROSOFT}
-2023-09-06 14:57:26,800 INFO c.i.E.LoadDatabase [main] Preloading Product{productName='ZenBook 14', productPrice=1200.0, productCategory=LAPTOP, productManufacturer=ASUS}
-2023-09-06 14:57:26,806 INFO c.i.E.LoadDatabase [main] Preloading Product{productName='IPhone 12', productPrice=1100.0, productCategory=PHONE, productManufacturer=APPLE}
-2023-09-06 14:57:26,811 INFO c.i.E.LoadDatabase [main] Preloading Product{productName='Power Bank', productPrice=20.0, productCategory=OTHER, productManufacturer=OTHER}
-2023-09-06 14:57:26,815 INFO c.i.E.LoadDatabase [main] Preloading Product{productName='Aspire 5', productPrice=700.0, productCategory=LAPTOP, productManufacturer=ACER}
-2023-09-06 14:57:26,819 INFO c.i.E.LoadDatabase [main] Preloading Product{productName='Moto G9', productPrice=300.0, productCategory=PHONE, productManufacturer=MOTOROLA}
-2023-09-06 14:57:26,824 INFO c.i.E.LoadDatabase [main] Preloading Product{productName='Headphones', productPrice=80.0, productCategory=OTHER, productManufacturer=SONY}
-2023-09-06 15:02:23,716 INFO o.s.o.j.AbstractEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
-2023-09-06 15:02:23,719 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
-2023-09-06 15:02:23,728 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.
+2023-09-07 14:35:31,734 INFO o.h.v.i.u.Version [background-preinit] HV000001: Hibernate Validator 8.0.1.Final
+2023-09-07 14:35:31,828 INFO o.s.b.StartupInfoLogger [main] Starting EcommerceApplication using Java 17.0.8 with PID 7356 (C:\Users\aleksander01.TRN\IdeaProjects\EcommerceApp\target\classes started by aleksander01.TRN in C:\Users\aleksander01.TRN\IdeaProjects\EcommerceApp)
+2023-09-07 14:35:31,836 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v3.1.2, Spring v6.0.11
+2023-09-07 14:35:31,840 INFO o.s.b.SpringApplication [main] No active profile set, falling back to 1 default profile: "default"
+2023-09-07 14:35:33,351 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-09-07 14:35:33,580 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 173 ms. Found 3 JPA repository interfaces.
+2023-09-07 14:35:35,308 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat initialized with port(s): 8080 (http)
+2023-09-07 14:35:35,337 INFO o.a.j.l.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-8080"]
+2023-09-07 14:35:35,342 INFO o.a.j.l.DirectJDKLog [main] Starting service [Tomcat]
+2023-09-07 14:35:35,343 INFO o.a.j.l.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/10.1.11]
+2023-09-07 14:35:35,557 INFO o.a.j.l.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
+2023-09-07 14:35:35,562 INFO o.s.b.w.s.c.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 3628 ms
+2023-09-07 14:35:35,905 INFO o.h.j.i.u.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-09-07 14:35:36,018 INFO o.h.Version [main] HHH000412: Hibernate ORM core version 6.2.6.Final
+2023-09-07 14:35:36,023 INFO o.h.c.Environment [main] HHH000406: Using bytecode reflection optimizer
+2023-09-07 14:35:36,308 INFO o.h.b.i.BytecodeProviderInitiator [main] HHH000021: Bytecode provider name : bytebuddy
+2023-09-07 14:35:36,598 INFO o.s.o.j.p.SpringPersistenceUnitInfo [main] No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-09-07 14:35:36,641 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Starting...
+2023-09-07 14:35:37,293 INFO c.z.h.p.HikariPool [main] HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@65af05b2
+2023-09-07 14:35:37,297 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Start completed.
+2023-09-07 14:35:37,895 INFO o.h.b.i.BytecodeProviderInitiator [main] HHH000021: Bytecode provider name : bytebuddy
+2023-09-07 14:35:39,418 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [main] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-09-07 14:35:39,554 INFO o.s.o.j.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-09-07 14:35:40,471 WARN o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-09-07 14:35:40,889 INFO o.s.s.w.DefaultSecurityFilterChain [main] Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3811464b, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5f0a5848, org.springframework.security.web.context.SecurityContextHolderFilter@3b48361e, org.springframework.security.web.header.HeaderWriterFilter@711261c7, org.springframework.security.web.authentication.logout.LogoutFilter@58dea0a7, org.springframework.security.oauth2.server.resource.web.authentication.BearerTokenAuthenticationFilter@3a75d9a1, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@94b5fe3, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5ae22651, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@72e4ffa2, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@c6db00d, org.springframework.security.web.session.SessionManagementFilter@18fcfe7e, org.springframework.security.web.access.ExceptionTranslationFilter@770c3ca2, org.springframework.security.web.access.intercept.AuthorizationFilter@436103b1]
+2023-09-07 14:35:41,653 INFO o.a.j.l.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-8080"]
+2023-09-07 14:35:41,708 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat started on port(s): 8080 (http) with context path ''
+2023-09-07 14:35:41,723 INFO o.s.b.StartupInfoLogger [main] Started EcommerceApplication in 10.601 seconds (process running for 12.419)
+2023-09-07 14:35:41,865 INFO c.i.E.c.LoadDatabase [main] Preloading Product{productName='Omen 15', productPrice=1400.0, productCategory=LAPTOP, productManufacturer=HP}
+2023-09-07 14:35:41,870 INFO c.i.E.c.LoadDatabase [main] Preloading Product{productName='Omen 15', productPrice=1400.0, productCategory=LAPTOP, productManufacturer=HP}
+2023-09-07 14:35:41,877 INFO c.i.E.c.LoadDatabase [main] Preloading Product{productName='IPhone 8', productPrice=900.0, productCategory=PHONE, productManufacturer=APPLE}
+2023-09-07 14:35:41,882 INFO c.i.E.c.LoadDatabase [main] Preloading Product{productName='Usb-C Charger', productPrice=50.0, productCategory=OTHER, productManufacturer=OTHER}
+2023-09-07 14:35:41,887 INFO c.i.E.c.LoadDatabase [main] Preloading Product{productName='Predator 7', productPrice=1250.0, productCategory=LAPTOP, productManufacturer=ACER}
+2023-09-07 14:35:41,892 INFO c.i.E.c.LoadDatabase [main] Preloading Product{productName='Galaxy S10', productPrice=800.0, productCategory=PHONE, productManufacturer=SAMSUNG}
+2023-09-07 14:35:41,896 INFO c.i.E.c.LoadDatabase [main] Preloading Product{productName='MacBook Pro', productPrice=1800.0, productCategory=LAPTOP, productManufacturer=APPLE}
+2023-09-07 14:35:41,900 INFO c.i.E.c.LoadDatabase [main] Preloading Product{productName='Wireless Mouse', productPrice=30.0, productCategory=OTHER, productManufacturer=LENOVO}
+2023-09-07 14:35:41,904 INFO c.i.E.c.LoadDatabase [main] Preloading Product{productName='ThinkPad X1', productPrice=1500.0, productCategory=LAPTOP, productManufacturer=LENOVO}
+2023-09-07 14:35:41,908 INFO c.i.E.c.LoadDatabase [main] Preloading Product{productName='HTC 9', productPrice=700.0, productCategory=PHONE, productManufacturer=HTC}
+2023-09-07 14:35:41,913 INFO c.i.E.c.LoadDatabase [main] Preloading Product{productName='Bluetooth Speaker', productPrice=60.0, productCategory=OTHER, productManufacturer=OTHER}
+2023-09-07 14:35:41,917 INFO c.i.E.c.LoadDatabase [main] Preloading Product{productName='Inspiron 15', productPrice=900.0, productCategory=LAPTOP, productManufacturer=DELL}
+2023-09-07 14:35:41,920 INFO c.i.E.c.LoadDatabase [main] Preloading Product{productName='Pixel 5', productPrice=600.0, productCategory=PHONE, productManufacturer=GOOGLE}
+2023-09-07 14:35:41,923 INFO c.i.E.c.LoadDatabase [main] Preloading Product{productName='Wireless Keyboard', productPrice=40.0, productCategory=OTHER, productManufacturer=MICROSOFT}
+2023-09-07 14:35:41,926 INFO c.i.E.c.LoadDatabase [main] Preloading Product{productName='ZenBook 14', productPrice=1200.0, productCategory=LAPTOP, productManufacturer=ASUS}
+2023-09-07 14:35:41,932 INFO c.i.E.c.LoadDatabase [main] Preloading Product{productName='IPhone 12', productPrice=1100.0, productCategory=PHONE, productManufacturer=APPLE}
+2023-09-07 14:35:41,936 INFO c.i.E.c.LoadDatabase [main] Preloading Product{productName='Power Bank', productPrice=20.0, productCategory=OTHER, productManufacturer=OTHER}
+2023-09-07 14:35:41,940 INFO c.i.E.c.LoadDatabase [main] Preloading Product{productName='Aspire 5', productPrice=700.0, productCategory=LAPTOP, productManufacturer=ACER}
+2023-09-07 14:35:41,944 INFO c.i.E.c.LoadDatabase [main] Preloading Product{productName='Moto G9', productPrice=300.0, productCategory=PHONE, productManufacturer=MOTOROLA}
+2023-09-07 14:35:41,948 INFO c.i.E.c.LoadDatabase [main] Preloading Product{productName='Headphones', productPrice=80.0, productCategory=OTHER, productManufacturer=SONY}
+2023-09-07 14:36:00,263 INFO o.a.j.l.DirectJDKLog [http-nio-8080-exec-3] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-09-07 14:36:00,264 INFO o.s.w.s.FrameworkServlet [http-nio-8080-exec-3] Initializing Servlet 'dispatcherServlet'
+2023-09-07 14:36:00,266 INFO o.s.w.s.FrameworkServlet [http-nio-8080-exec-3] Completed initialization in 2 ms
