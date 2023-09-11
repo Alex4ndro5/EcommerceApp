@@ -27,8 +27,8 @@ public class Product {
     @Column(name = "product_name", nullable = false)
     private String productName;
     @Column(name = "product_price", nullable = false)
-    private @DecimalMin(value = "0.0", inclusive = false, message = "Price should be greater than 0")
-    BigDecimal productPrice;
+    @DecimalMin(value = "0.0", inclusive = false, message = "Price should be greater than 0")
+    private BigDecimal productPrice;
     @Column(name = "product_category")
     private ProductCategory productCategory;
     @Column(name = "product_manufacturer")
