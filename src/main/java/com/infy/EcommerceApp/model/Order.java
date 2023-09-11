@@ -1,5 +1,6 @@
 package com.infy.EcommerceApp.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.infy.EcommerceApp.enums.OrderStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,54 +13,33 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.List;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-@Getter
-@Setter
+
 @NoArgsConstructor
-@AllArgsConstructor
+@Data
 @Entity
-@Table(
-        name = "orders"
-)
+@Table(name = "orders")
 public class Order {
     @Id
-    @GeneratedValue(
-            strategy = GenerationType.AUTO
-    )
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long orderId;
-    @Column(
-            name = "order_status"
-    )
+    @Column(name = "order_status")
     private OrderStatus orderStatus;
-    @Column(
-            name = "order_date"
-    )
+    @Column(name = "order_date")
     private LocalDate orderDate;
-    @OneToMany(
-            mappedBy = "order"
-    )
-    private ArrayList<OrderedProduct> orderedProducts;
-    @ManyToOne(
-            fetch = FetchType.LAZY,
-            optional = false
-    )
-    @JoinColumn(
-            name = "customerId",
-            nullable = false
-    )
-    @OnDelete(
-            action = OnDeleteAction.CASCADE
-    )
+    @OneToMany(mappedBy = "order")
+    private List<OrderedProduct> orderedProducts;
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "customerId", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Customer customer;
 
-    public Order(OrderStatus orderStatus, LocalDate orderDate, ArrayList<OrderedProduct> orderedProducts, Customer customer) {
+    public Order(OrderStatus orderStatus, LocalDate orderDate, List<OrderedProduct> orderedProducts, Customer customer) {
         this.orderStatus = orderStatus;
         this.orderDate = orderDate;
         this.orderedProducts = orderedProducts;

@@ -2,6 +2,9 @@ package com.infy.EcommerceApp.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.infy.EcommerceApp.enums.CustomerGender;
 import com.infy.EcommerceApp.enums.CustomerRole;
 import jakarta.persistence.Column;
@@ -12,76 +15,44 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
-@Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
-@Table(
-        name = "customers"
-)
+@Data
+@Table(name = "customers")
 public class Customer {
     @Id
-    @Column(
-            name = "customer_id"
-    )
-    @GeneratedValue(
-            strategy = GenerationType.AUTO
-    )
+    @Column(name = "customer_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long customerId;
-    @Column(
-            name = "customer_name",
-            nullable = false
-    )
+    @Column(name = "customer_name", nullable = false)
     private String customerName;
-    @Column(
-            name = "customer_password"
-    )
+    @Column(name = "customer_password")
     private String customerPassword;
-    @Column(
-            name = "customer_birthdate"
-    )
-    @JsonFormat(
-            pattern = "dd/MM/yy"
-    )
+    @Column(name = "customer_birthdate")
+    @JsonFormat(pattern = "dd/MM/yy")
     private LocalDate customerBirthdate;
-    @Column(
-            name = "customer_email",
-            nullable = false,
-            unique = true
-    )
-    private @Email(
-            message = "Email should be valid"
-    ) String customerEmail;
-    @Column(
-            name = "customer_address",
-            nullable = false
-    )
+    @Column(name = "customer_email", nullable = false, unique = true)
+    private @Email(message = "Email should be valid")
+    String customerEmail;
+    @Column(name = "customer_address", nullable = false)
     private String customerAddress;
-    @Column(
-            name = "customer_gender"
-    )
+    @Column(name = "customer_gender")
     private CustomerGender customerGender;
-    @Column(
-            name = "customer_role"
-    )
+    @Column(name = "customer_role")
     private CustomerRole customerRole;
-    @Column(
-            name = "customer_orders"
-    )
-    @OneToMany(
-            mappedBy = "customer"
-    )
+    @Column(name = "customer_orders")
+    @OneToMany(mappedBy = "customer")
     private List<Order> customerOrders;
+
+    ObjectMapper mapper = JsonMapper.builder()
+            .addModule(new JavaTimeModule())
+            .build();
 
     public Customer(String customerName, String customerPassword, LocalDate customerBirthdate, String customerEmail, String customerAddress) {
         this.customerRole = CustomerRole.CUSTOMER;

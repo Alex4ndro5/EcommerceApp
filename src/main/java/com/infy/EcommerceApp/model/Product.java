@@ -9,54 +9,31 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.DecimalMin;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
-@Getter
-@Setter
+
 @NoArgsConstructor
-@AllArgsConstructor
+@Data
 @Entity
 @Table(
         name = "products"
 )
 public class Product {
     @Id
-    @Column(
-            name = "product_id"
-    )
-    @GeneratedValue(
-            strategy = GenerationType.AUTO
-    )
+    @Column(name = "product_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long productId;
-    @Column(
-            name = "product_name",
-            nullable = false
-    )
+    @Column(name = "product_name", nullable = false)
     private String productName;
-    @Column(
-            name = "product_price",
-            nullable = false
-    )
-    private @DecimalMin(
-            value = "0.0",
-            inclusive = false,
-            message = "Price should be greater than 0"
-    ) BigDecimal productPrice;
-    @Column(
-            name = "product_category"
-    )
+    @Column(name = "product_price", nullable = false)
+    private @DecimalMin(value = "0.0", inclusive = false, message = "Price should be greater than 0")
+    BigDecimal productPrice;
+    @Column(name = "product_category")
     private ProductCategory productCategory;
-    @Column(
-            name = "product_manufacturer"
-    )
+    @Column(name = "product_manufacturer")
     private ProductManufacturer productManufacturer;
-    @Column(
-            name = "product_picture_url"
-    )
+    @Column(name = "product_picture_url")
     private String productPictureUrl;
 
     public Product(String productName, BigDecimal productPrice, ProductCategory productCategory, ProductManufacturer productManufacturer, String productPictureUrl) {
