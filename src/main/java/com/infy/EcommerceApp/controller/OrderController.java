@@ -44,7 +44,6 @@ public class OrderController {
     @SneakyThrows
     @GetMapping({"/orders/{id}"})
     public ResponseEntity<EntityModel<Order>> getOrderById(@PathVariable("id") Long id) {
-
         Order order = orderRepository.findById(id)
                 .orElseThrow(() -> new OrderNotFoundException(id));
         return ResponseEntity.ok(orderModelAssembler.toModel(order));

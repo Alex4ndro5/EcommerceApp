@@ -8,8 +8,11 @@ import java.util.stream.Collectors;
 import com.infy.EcommerceApp.assemblers.ProductModelAssembler;
 import com.infy.EcommerceApp.enums.ProductCategory;
 import com.infy.EcommerceApp.enums.ProductManufacturer;
+import com.infy.EcommerceApp.exceptions.ProductNotFoundException;
+import com.infy.EcommerceApp.model.Product;
 import com.infy.EcommerceApp.model.Product;
 import com.infy.EcommerceApp.repository.ProductRepository;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -47,15 +50,12 @@ public class ProductController {
         return ResponseEntity.ok(CollectionModel.of(products, linkTo(methodOn(ProductController.class).getAllProducts()).withSelfRel()));
     }
 
+    @SneakyThrows
     @GetMapping("/products/{id}")
     public ResponseEntity<EntityModel<Product>> getProductById(@PathVariable("id") Long id) {
-        Optional<Product> productData = productRepository.findById(id);
-        if (productData.isPresent()) {
-            return ResponseEntity.ok(EntityModel.of(productData.get(),
-                    linkTo(methodOn(ProductController.class).getProductById(id)).withSelfRel()));
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new ProductNotFoundException(id));
+        return ResponseEntity.ok(productModelAssembler.toModel(product));
     }
 
     @GetMapping("/products/category/{category}")
