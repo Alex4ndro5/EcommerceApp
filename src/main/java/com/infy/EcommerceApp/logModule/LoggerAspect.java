@@ -24,7 +24,7 @@ public class LoggerAspect {
     public void myPointCut () {
     }*/
 
-    /*@AfterReturning("myPointCut()")
+    @AfterReturning(value="execution(* com.infy.EcommerceApp.controller.*.*(..) )")
     public void applicationLogger(JoinPoint jp) throws JsonProcessingException {
 
         ObjectMapper mapper = new ObjectMapper();
@@ -35,7 +35,7 @@ public class LoggerAspect {
         logger.info(className.substring(39) + " "+ methodName + " " + mapper.writeValueAsString(array));
 
     }
-    */
+
 
    @AfterThrowing(value="execution(* com.infy.EcommerceApp.controller.*.*(..) )", throwing = "ex")
     public void exceptionsLogger(JoinPoint jp, Exception ex) {
