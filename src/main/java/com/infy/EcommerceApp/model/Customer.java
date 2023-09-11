@@ -19,6 +19,8 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -79,7 +81,7 @@ public class Customer {
     @OneToMany(
             mappedBy = "customer"
     )
-    private ArrayList<Order> customerOrders;
+    private List<Order> customerOrders;
 
     public Customer(String customerName, String customerPassword, LocalDate customerBirthdate, String customerEmail, String customerAddress) {
         this.customerRole = CustomerRole.CUSTOMER;

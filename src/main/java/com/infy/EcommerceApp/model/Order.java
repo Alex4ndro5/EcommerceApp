@@ -51,7 +51,7 @@ public class Order {
             optional = false
     )
     @JoinColumn(
-            name = "userId",
+            name = "customerId",
             nullable = false
     )
     @OnDelete(
