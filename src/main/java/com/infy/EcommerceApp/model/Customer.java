@@ -38,8 +38,8 @@ public class Customer {
     @JsonFormat(pattern = "dd/MM/yy")
     private LocalDate customerBirthdate;
     @Column(name = "customer_email", nullable = false, unique = true)
-    private @Email(message = "Email should be valid")
-    String customerEmail;
+    @Email(message = "Email should be valid")
+    private String customerEmail;
     @Column(name = "customer_address", nullable = false)
     private String customerAddress;
     @Column(name = "customer_gender")

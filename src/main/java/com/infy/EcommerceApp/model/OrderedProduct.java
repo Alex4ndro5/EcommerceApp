@@ -26,8 +26,8 @@ public class OrderedProduct {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long orderedProductId;
     @Column(name = "quantity")
-    private @Min(value = 1L, message = "Quantity should be greater than 0")
-    Integer quantity;
+    @Min(value = 1L, message = "Quantity should be greater than 0")
+    private Integer quantity;
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "orderId", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
