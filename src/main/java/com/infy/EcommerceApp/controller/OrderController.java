@@ -69,13 +69,14 @@ public class OrderController {
             order.setOrderStatus(OrderStatus.COMPLETED);
             return ResponseEntity.ok(orderModelAssembler.toModel(orderRepository.save(order)));
         }
-        return ResponseEntity //
-                .status(HttpStatus.METHOD_NOT_ALLOWED) //
-                .header(HttpHeaders.CONTENT_TYPE, MediaTypes.HTTP_PROBLEM_DETAILS_JSON_VALUE) //
-                .body(Problem.create() //
-                        .withTitle("Method not allowed") //
-                        .withDetail("You can't complete an order that is in the " + order.getOrderStatus() + " status"));
-    }
+        else {
+            return ResponseEntity //
+                    .status(HttpStatus.METHOD_NOT_ALLOWED) //
+                    .header(HttpHeaders.CONTENT_TYPE, MediaTypes.HTTP_PROBLEM_DETAILS_JSON_VALUE) //
+                    .body(Problem.create() //
+                            .withTitle("Method not allowed") //
+                            .withDetail("You can't complete an order that is in the " + order.getOrderStatus() + " status"));        }
+        }
 
     @SneakyThrows
     @DeleteMapping("/orders/{id}/cancel")

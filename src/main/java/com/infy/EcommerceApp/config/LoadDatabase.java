@@ -1,8 +1,13 @@
 package com.infy.EcommerceApp.config;
 
+import com.infy.EcommerceApp.enums.OrderStatus;
 import com.infy.EcommerceApp.enums.ProductCategory;
 import com.infy.EcommerceApp.enums.ProductManufacturer;
+import com.infy.EcommerceApp.model.Customer;
+import com.infy.EcommerceApp.model.Order;
 import com.infy.EcommerceApp.model.Product;
+import com.infy.EcommerceApp.repository.CustomerRepository;
+import com.infy.EcommerceApp.repository.OrderRepository;
 import com.infy.EcommerceApp.repository.ProductRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,15 +16,19 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Configuration
 class LoadDatabase {
     private static final Logger log = LogManager.getLogger(LoadDatabase.class);
 
     @Bean
-    CommandLineRunner initDatabase(ProductRepository productRepository) {
+    CommandLineRunner initDatabase(ProductRepository productRepository, CustomerRepository customerRepository, OrderRepository orderRepository) {
         return args -> {
-            log.info("Preloading " + productRepository.save(new Product("Omen 15", BigDecimal.valueOf(1400.0), ProductCategory.LAPTOP, ProductManufacturer.HP, "http://placehold.it/200x100")));
+            Product p1 = new Product("Omen 15", BigDecimal.valueOf(1400.0), ProductCategory.LAPTOP, ProductManufacturer.HP, "http://placehold.it/200x100");
+            log.info("Preloading " + productRepository.save(p1));
             log.info("Preloading " + productRepository.save(new Product("Omen 15", BigDecimal.valueOf(1400.0), ProductCategory.LAPTOP, ProductManufacturer.HP, "http://placehold.it/200x100")));
             log.info("Preloading " + productRepository.save(new Product("IPhone 8", BigDecimal.valueOf(900.0), ProductCategory.PHONE, ProductManufacturer.APPLE, "http://placehold.it/200x100")));
             log.info("Preloading " + productRepository.save(new Product("Usb-C Charger", BigDecimal.valueOf(50.0), ProductCategory.OTHER, ProductManufacturer.OTHER, "http://placehold.it/200x100")));
@@ -40,6 +49,13 @@ class LoadDatabase {
             log.info("Preloading " + productRepository.save(new Product("Moto G9", BigDecimal.valueOf(300.0), ProductCategory.PHONE, ProductManufacturer.MOTOROLA, "http://placehold.it/200x100")));
             log.info("Preloading " + productRepository.save(new Product("Headphones", BigDecimal.valueOf(80.0), ProductCategory.OTHER, ProductManufacturer.SONY, "http://placehold.it/200x100")));
 
+            customerRepository.deleteAll();
+            Customer c1 = new Customer("Sofia", "p4ssw0rd", "21-04-2001","sofia@mail.com","Bangalore, India");
+            log.info("Adding customer: " + customerRepository.save(c1));
+            log.info("Adding customer: " + customerRepository.save(new Customer("Aleks", "p4ssw0rd", "21-04-2000","alek.mail@outlook.com","Bangalore, India")));
+
+
+            log.info("Creating order: " + orderRepository.save(new Order(c1, p1, 2)));
         };
     }
 }

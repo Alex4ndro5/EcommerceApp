@@ -1,23 +1,12 @@
 package com.infy.EcommerceApp.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.json.JsonMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.infy.EcommerceApp.enums.CustomerGender;
 import com.infy.EcommerceApp.enums.CustomerRole;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.*;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,33 +17,36 @@ import java.util.List;
 public class Customer {
     @Id
     @Column(name = "customer_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long customerId;
+
     @Column(name = "customer_name", nullable = false)
     private String customerName;
+
     @Column(name = "customer_password")
     private String customerPassword;
+
     @Column(name = "customer_birthdate")
-    @JsonFormat(pattern = "dd/MM/yy")
-    private LocalDate customerBirthdate;
+    private String customerBirthdate;
+
     @Column(name = "customer_email", nullable = false, unique = true)
     @Email(message = "Email should be valid")
     private String customerEmail;
+
     @Column(name = "customer_address", nullable = false)
     private String customerAddress;
+
     @Column(name = "customer_gender")
     private CustomerGender customerGender;
+
     @Column(name = "customer_role")
     private CustomerRole customerRole;
+
     @Column(name = "customer_orders")
-    @OneToMany(mappedBy = "customer")
-    private List<Order> customerOrders;
+    @OneToMany(mappedBy = "customer",  cascade = CascadeType.ALL)
+    private List<Order> customerOrders = new ArrayList<>();
 
-    ObjectMapper mapper = JsonMapper.builder()
-            .addModule(new JavaTimeModule())
-            .build();
-
-    public Customer(String customerName, String customerPassword, LocalDate customerBirthdate, String customerEmail, String customerAddress) {
+    public Customer(String customerName, String customerPassword, String customerBirthdate, String customerEmail, String customerAddress) {
         this.customerRole = CustomerRole.CUSTOMER;
         this.customerName = customerName;
         this.customerPassword = customerPassword;

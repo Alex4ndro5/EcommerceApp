@@ -56,10 +56,12 @@ public class CustomerController {
 
     @PostMapping("/customers")
     public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer) {
+
         customer = customerRepository.save(customer);
         return ResponseEntity.created(linkTo(methodOn(CustomerController.class).getCustomerById(customer.getCustomerId())).toUri())
                 .body(customer);
     }
+
 
     @PutMapping("/customers/{id}")
     public ResponseEntity<Customer> updateCustomer(@PathVariable("id") Long id, @RequestBody Customer customer) {
