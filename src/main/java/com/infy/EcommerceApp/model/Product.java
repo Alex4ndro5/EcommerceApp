@@ -19,20 +19,15 @@ public class Product {
     @Column(name = "product_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long productId;
-
     @Column(name = "product_name", nullable = false)
     private String productName;
-
     @Column(name = "product_price", nullable = false)
     @DecimalMin(value = "0.0", inclusive = false, message = "Price should be greater than 0")
     private BigDecimal productPrice;
-
     @Column(name = "product_category")
     private ProductCategory productCategory;
-
     @Column(name = "product_manufacturer")
     private ProductManufacturer productManufacturer;
-
     @Column(name = "product_picture_url")
     private String productPictureUrl;
 

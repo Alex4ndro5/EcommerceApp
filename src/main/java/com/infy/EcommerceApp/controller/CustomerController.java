@@ -43,7 +43,9 @@ public class CustomerController {
                 .map(customerModelAssembler::toModel)
                 .collect(Collectors.toList());
 
-        return ResponseEntity.ok(CollectionModel.of(customers, linkTo(methodOn(CustomerController.class).getAllCustomers()).withSelfRel()));
+        return ResponseEntity
+                .ok(CollectionModel.of(customers, linkTo(methodOn(CustomerController.class)
+                        .getAllCustomers()).withSelfRel()));
     }
 
     @SneakyThrows
@@ -58,8 +60,8 @@ public class CustomerController {
     public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer) {
 
         customer = customerRepository.save(customer);
-        return ResponseEntity.created(linkTo(methodOn(CustomerController.class).getCustomerById(customer.getCustomerId())).toUri())
-                .body(customer);
+        return ResponseEntity.created(linkTo(methodOn(CustomerController.class)
+                        .getCustomerById(customer.getCustomerId())).toUri()).body(customer);
     }
 
 

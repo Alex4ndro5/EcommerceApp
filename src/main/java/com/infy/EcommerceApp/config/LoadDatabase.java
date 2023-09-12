@@ -16,18 +16,17 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 @Configuration
 class LoadDatabase {
     private static final Logger log = LogManager.getLogger(LoadDatabase.class);
 
     @Bean
-    CommandLineRunner initDatabase(ProductRepository productRepository, CustomerRepository customerRepository, OrderRepository orderRepository) {
+    CommandLineRunner initDatabase(ProductRepository productRepository, CustomerRepository customerRepository,
+                                   OrderRepository orderRepository) {
         return args -> {
-            Product p1 = new Product("Omen 15", BigDecimal.valueOf(1400.0), ProductCategory.LAPTOP, ProductManufacturer.HP, "http://placehold.it/200x100");
+            Product p1 = new Product("Omen 15", BigDecimal.valueOf(1400.0), ProductCategory.LAPTOP,
+                    ProductManufacturer.HP, "http://placehold.it/200x100");
             log.info("Preloading " + productRepository.save(p1));
             log.info("Preloading " + productRepository.save(new Product("Omen 15", BigDecimal.valueOf(1400.0), ProductCategory.LAPTOP, ProductManufacturer.HP, "http://placehold.it/200x100")));
             log.info("Preloading " + productRepository.save(new Product("IPhone 8", BigDecimal.valueOf(900.0), ProductCategory.PHONE, ProductManufacturer.APPLE, "http://placehold.it/200x100")));

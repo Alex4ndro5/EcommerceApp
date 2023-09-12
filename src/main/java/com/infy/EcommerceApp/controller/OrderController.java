@@ -38,7 +38,8 @@ public class OrderController {
                 .map(orderModelAssembler::toModel) //
                 .collect(Collectors.toList());
 
-        return ResponseEntity.ok(CollectionModel.of(orders, linkTo(methodOn(OrderController.class).getAllOrders()).withSelfRel()));
+        return ResponseEntity.ok(CollectionModel.of(orders, linkTo(methodOn(OrderController.class)
+                .getAllOrders()).withSelfRel()));
     }
 
     @SneakyThrows
@@ -56,7 +57,8 @@ public class OrderController {
         Order newOrder = orderRepository.save(order);
 
         return ResponseEntity //
-                .created(linkTo(methodOn(OrderController.class).getOrderById(newOrder.getOrderId())).toUri()) //
+                .created(linkTo(methodOn(OrderController.class)
+                        .getOrderById(newOrder.getOrderId())).toUri()) //
                 .body(orderModelAssembler.toModel(newOrder));
     }
 
@@ -75,7 +77,8 @@ public class OrderController {
                     .header(HttpHeaders.CONTENT_TYPE, MediaTypes.HTTP_PROBLEM_DETAILS_JSON_VALUE) //
                     .body(Problem.create() //
                             .withTitle("Method not allowed") //
-                            .withDetail("You can't complete an order that is in the " + order.getOrderStatus() + " status"));        }
+                            .withDetail("You can't complete an order that is in the "
+                                    + order.getOrderStatus() + " status"));        }
         }
 
     @SneakyThrows
@@ -95,7 +98,8 @@ public class OrderController {
                 .header(HttpHeaders.CONTENT_TYPE, MediaTypes.HTTP_PROBLEM_DETAILS_JSON_VALUE) //
                 .body(Problem.create() //
                         .withTitle("Method not allowed") //
-                        .withDetail("You can't cancel an order that is in the " + order.getOrderStatus() + " status"));
+                        .withDetail("You can't cancel an order that is in the "
+                                + order.getOrderStatus() + " status"));
     }
 
 }

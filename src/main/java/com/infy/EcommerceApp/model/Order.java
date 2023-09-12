@@ -23,23 +23,18 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "order_id")
     private Long orderId;
-
     @Column(name = "order_status")
     private OrderStatus orderStatus;
-
     @Column(name = "order_date")
     private LocalDate orderDate;
-
     @JsonBackReference(value = "orderCustomer")
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
-
     @JsonBackReference(value = "orderedProduct")
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
-
     @Min(value = 1, message = "Min quantity 1")
     @Column(name = "quantity")
     private Integer quantity;

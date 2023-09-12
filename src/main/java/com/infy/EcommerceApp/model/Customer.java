@@ -19,29 +19,21 @@ public class Customer {
     @Column(name = "customer_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long customerId;
-
     @Column(name = "customer_name", nullable = false)
     private String customerName;
-
     @Column(name = "customer_password")
     private String customerPassword;
-
     @Column(name = "customer_birthdate")
     private String customerBirthdate;
-
     @Column(name = "customer_email", nullable = false, unique = true)
     @Email(message = "Email should be valid")
     private String customerEmail;
-
     @Column(name = "customer_address", nullable = false)
     private String customerAddress;
-
     @Column(name = "customer_gender")
     private CustomerGender customerGender;
-
     @Column(name = "customer_role")
     private CustomerRole customerRole;
-
     @Column(name = "customer_orders")
     @OneToMany(mappedBy = "customer",  cascade = CascadeType.ALL)
     private List<Order> customerOrders = new ArrayList<>();

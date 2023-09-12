@@ -43,7 +43,7 @@ public class LoggerAspect {
         String className = jp.getTarget().getClass().toString();
         String methodName = jp.getSignature().getName();
 
-        logger.info(className.substring(39) + " " + methodName + " EXCEPTION: " + ex.getMessage());
+        logger.error(className.substring(39) + " " + methodName + " EXCEPTION: " + ex.getMessage());
     }
     }
 
