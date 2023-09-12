@@ -5,6 +5,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
+/**
+ * Main class of an application.
+ */
 @EnableConfigurationProperties(RsaKeyProperties.class)
 @SpringBootApplication
 public class EcommerceApplication {

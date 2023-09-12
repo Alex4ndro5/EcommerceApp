@@ -12,7 +12,9 @@ import java.util.List;
 
 import jakarta.validation.constraints.Min;
 import lombok.*;
-
+/**
+ * Entity class representing order information.
+ */
 
 @NoArgsConstructor
 @Data

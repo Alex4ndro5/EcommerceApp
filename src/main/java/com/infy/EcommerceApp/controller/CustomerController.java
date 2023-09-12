@@ -27,16 +27,28 @@ import org.springframework.web.bind.annotation.RestController;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+/**
+ * Controller class responsible for managing customer-related endpoints.
+ */
 @RestController
 public class CustomerController {
+
     @Autowired
     private CustomerRepository customerRepository;
     @Autowired
     private CustomerModelAssembler customerModelAssembler;
 
+    /**
+     * Default constructor for CustomerController.
+     */
     public CustomerController() {
     }
 
+    /**
+     * Retrieves all customers and returns them as a ResponseEntity with HATEOAS links.
+     *
+     * @return A ResponseEntity containing a collection of EntityModel instances representing customers.
+     */
     @GetMapping("/customers")
     public ResponseEntity<CollectionModel<EntityModel<Customer>>> getAllCustomers() {
         List<EntityModel<Customer>> customers = customerRepository.findAll().stream()
@@ -48,6 +60,13 @@ public class CustomerController {
                         .getAllCustomers()).withSelfRel()));
     }
 
+    /**
+     * Retrieves a customer by their ID and returns it as a ResponseEntity with HATEOAS links.
+     *
+     * @param id The ID of the customer to retrieve.
+     * @return A ResponseEntity containing an EntityModel representing the customer.
+     * @throws CustomerNotFoundException If the customer with the given ID is not found.
+     */
     @SneakyThrows
     @GetMapping("/customers/{id}")
     public ResponseEntity<EntityModel<Customer>> getCustomerById(@PathVariable("id") Long id) {
@@ -56,15 +75,28 @@ public class CustomerController {
         return ResponseEntity.ok(customerModelAssembler.toModel(customer));
     }
 
+    /**
+     * Creates a new customer and returns a ResponseEntity with the created customer and HATEOAS links.
+     *
+     * @param customer The customer to create.
+     * @return A ResponseEntity containing the created customer and a link to its resource.
+     */
     @PostMapping("/customers")
     public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer) {
 
         customer = customerRepository.save(customer);
         return ResponseEntity.created(linkTo(methodOn(CustomerController.class)
-                        .getCustomerById(customer.getCustomerId())).toUri()).body(customer);
+                .getCustomerById(customer.getCustomerId())).toUri()).body(customer);
     }
 
 
+    /**
+     * Updates an existing customer with the provided data.
+     *
+     * @param id       The ID of the customer to update.
+     * @param customer The updated customer data.
+     * @return A ResponseEntity containing the updated customer if successful, or a not-found response if the customer does not exist.
+     */
     @PutMapping("/customers/{id}")
     public ResponseEntity<Customer> updateCustomer(@PathVariable("id") Long id, @RequestBody Customer customer) {
         Optional<Customer> customerData = customerRepository.findById(id);
@@ -82,6 +114,12 @@ public class CustomerController {
         }
     }
 
+    /**
+     * Deletes a customer by their ID.
+     *
+     * @param id The ID of the customer to delete.
+     * @return A ResponseEntity with a success status if the customer is deleted, or an internal server error if an exception occurs.
+     */
     @DeleteMapping("/customers/{id}")
     public ResponseEntity<HttpStatus> deleteCustomer(@PathVariable("id") long id) {
         try {
@@ -92,6 +130,11 @@ public class CustomerController {
         }
     }
 
+    /**
+     * Deletes all customers.
+     *
+     * @return A ResponseEntity with a success status if all customers are deleted, or an internal server error if an exception occurs.
+     */
     @DeleteMapping("/customers")
     public ResponseEntity<HttpStatus> deleteAllCustomers() {
         try {

@@ -9,7 +9,9 @@ import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Entity class representing customer information.
+ */
 @NoArgsConstructor
 @Entity
 @Data

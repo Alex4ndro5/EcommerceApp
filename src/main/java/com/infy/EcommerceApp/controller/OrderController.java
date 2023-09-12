@@ -24,14 +24,23 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 public class OrderController {
+
     @Autowired
     OrderRepository orderRepository;
     @Autowired
     OrderModelAssembler orderModelAssembler;
 
+    /**
+     * Default constructor for OrderController.
+     */
     public OrderController() {
     }
 
+    /**
+     * Retrieves all orders and returns them as a ResponseEntity with HATEOAS links.
+     *
+     * @return A ResponseEntity containing a collection of EntityModel instances representing orders.
+     */
     @GetMapping({"/orders"})
     public ResponseEntity<CollectionModel<EntityModel<Order>>> getAllOrders() {
         List<EntityModel<Order>> orders = orderRepository.findAll().stream() //
@@ -42,6 +51,13 @@ public class OrderController {
                 .getAllOrders()).withSelfRel()));
     }
 
+    /**
+     * Retrieves an order by its ID and returns it as a ResponseEntity with HATEOAS links.
+     *
+     * @param id The ID of the order to retrieve.
+     * @return A ResponseEntity containing an EntityModel representing the order.
+     * @throws OrderNotFoundException If the order with the given ID is not found.
+     */
     @SneakyThrows
     @GetMapping({"/orders/{id}"})
     public ResponseEntity<EntityModel<Order>> getOrderById(@PathVariable("id") Long id) {
@@ -49,7 +65,12 @@ public class OrderController {
                 .orElseThrow(() -> new OrderNotFoundException(id));
         return ResponseEntity.ok(orderModelAssembler.toModel(order));
     }
-
+    /**
+     * Creates a new order and returns it as a ResponseEntity with HATEOAS links.
+     *
+     * @param order The order to create.
+     * @return A ResponseEntity containing the created order and a link to its resource.
+     */
     @PostMapping("/orders/create")
     ResponseEntity<EntityModel<Order>> createOrder(@RequestBody Order order) {
 
@@ -61,7 +82,13 @@ public class OrderController {
                         .getOrderById(newOrder.getOrderId())).toUri()) //
                 .body(orderModelAssembler.toModel(newOrder));
     }
-
+    /**
+     * Marks an order as completed and returns it as a ResponseEntity with HATEOAS links.
+     *
+     * @param id The ID of the order to complete.
+     * @return A ResponseEntity containing the completed order if successful, or an error response if the order is not in progress.
+     * @throws OrderNotFoundException If the order with the given ID is not found.
+     */
     @SneakyThrows
     @PutMapping({"/orders/{id}/complete"})
     public ResponseEntity<?> completeOrder(@PathVariable("id") Long id) {
@@ -80,7 +107,13 @@ public class OrderController {
                             .withDetail("You can't complete an order that is in the "
                                     + order.getOrderStatus() + " status"));        }
         }
-
+    /**
+     * Cancels an order and returns it as a ResponseEntity with HATEOAS links.
+     *
+     * @param id The ID of the order to cancel.
+     * @return A ResponseEntity containing the canceled order if successful, or an error response if the order is not in progress.
+     * @throws OrderNotFoundException If the order with the given ID is not found.
+     */
     @SneakyThrows
     @DeleteMapping("/orders/{id}/cancel")
     public ResponseEntity<?> cancelOrder(@PathVariable Long id) {

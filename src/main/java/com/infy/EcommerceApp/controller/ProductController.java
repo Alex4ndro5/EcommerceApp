@@ -30,16 +30,28 @@ import org.springframework.web.bind.annotation.RestController;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+/**
+ * Controller class responsible for managing product-related endpoints.
+ */
 @RestController
 public class ProductController {
+
     @Autowired
     private ProductRepository productRepository;
     @Autowired
     private ProductModelAssembler productModelAssembler;
 
+    /**
+     * Default constructor for ProductController.
+     */
     public ProductController() {
     }
 
+    /**
+     * Retrieves all products and returns them as a ResponseEntity with HATEOAS links.
+     *
+     * @return A ResponseEntity containing a collection of EntityModel instances representing products.
+     */
     @GetMapping("/products")
     public ResponseEntity<CollectionModel<EntityModel<Product>>> getAllProducts() {
         List<EntityModel<Product>> products = productRepository.findAll().stream()
@@ -50,6 +62,13 @@ public class ProductController {
         return ResponseEntity.ok(CollectionModel.of(products, linkTo(methodOn(ProductController.class).getAllProducts()).withSelfRel()));
     }
 
+    /**
+     * Retrieves a product by its ID and returns it as a ResponseEntity with HATEOAS links.
+     *
+     * @param id The ID of the product to retrieve.
+     * @return A ResponseEntity containing an EntityModel representing the product.
+     * @throws ProductNotFoundException If the product with the given ID is not found.
+     */
     @SneakyThrows
     @GetMapping("/products/{id}")
     public ResponseEntity<EntityModel<Product>> getProductById(@PathVariable("id") Long id) {
@@ -57,7 +76,12 @@ public class ProductController {
                 .orElseThrow(() -> new ProductNotFoundException(id));
         return ResponseEntity.ok(productModelAssembler.toModel(product));
     }
-
+    /**
+     * Retrieves products by category and returns them as a ResponseEntity with HATEOAS links.
+     *
+     * @param category The category of products to retrieve.
+     * @return A ResponseEntity containing a collection of EntityModel instances representing products within the specified category.
+     */
     @GetMapping("/products/category/{category}")
     public ResponseEntity<CollectionModel<EntityModel<Product>>> getProductsByCategory(@PathVariable("category") String category) {
         try {
@@ -75,7 +99,12 @@ public class ProductController {
             return ResponseEntity.internalServerError().build();
         }
     }
-
+    /**
+     * Retrieves products by name containing the specified keyword and returns them as a ResponseEntity with HATEOAS links.
+     *
+     * @param name The keyword to search for in product names.
+     * @return A ResponseEntity containing a collection of EntityModel instances representing products matching the name keyword.
+     */
     @GetMapping("/products/name/{name}")
     public ResponseEntity<CollectionModel<EntityModel<Product>>> getProductsByName(@PathVariable("name") String name) {
         try {
@@ -89,7 +118,12 @@ public class ProductController {
             return ResponseEntity.internalServerError().build();
         }
     }
-
+    /**
+     * Retrieves products by manufacturer and returns them as a ResponseEntity with HATEOAS links.
+     *
+     * @param manufacturer The manufacturer of products to retrieve.
+     * @return A ResponseEntity containing a collection of EntityModel instances representing products from the specified manufacturer.
+     */
     @GetMapping("/products/manufacturer/{manufacturer}")
     public ResponseEntity<CollectionModel<EntityModel<Product>>> getProductsByManufacturer(@PathVariable("manufacturer") String manufacturer) {
         try {
@@ -107,7 +141,12 @@ public class ProductController {
             return ResponseEntity.internalServerError().build();
         }
     }
-
+    /**
+     * Creates a new product and returns it as a ResponseEntity with a link to its resource.
+     *
+     * @param product The product to create.
+     * @return A ResponseEntity containing the created product and a link to its resource.
+     */
     @PostMapping("/products")
     public ResponseEntity<Product> createProduct(@RequestBody Product product) {
         try {
@@ -118,7 +157,13 @@ public class ProductController {
             return ResponseEntity.internalServerError().build();
         }
     }
-
+    /**
+     * Updates an existing product with the provided data.
+     *
+     * @param id      The ID of the product to update.
+     * @param product The updated product data.
+     * @return A ResponseEntity containing the updated product if successful, or a not-found response if the product does not exist.
+     */
     @PutMapping("/products/{id}")
     public ResponseEntity<Product> updateProduct(@PathVariable("id") Long id, @RequestBody Product product) {
         Optional<Product> productData = productRepository.findById(id);
@@ -135,7 +180,12 @@ public class ProductController {
             return ResponseEntity.notFound().build();
         }
     }
-
+    /**
+     * Deletes a product by its ID.
+     *
+     * @param id The ID of the product to delete.
+     * @return A ResponseEntity with a success status if the product is deleted, or an internal server error if an exception occurs.
+     */
     @DeleteMapping("/products/{id}")
     public ResponseEntity<HttpStatus> deleteProduct(@PathVariable("id") long id) {
         try {
@@ -145,7 +195,11 @@ public class ProductController {
             return ResponseEntity.internalServerError().build();
         }
     }
-
+    /**
+     * Deletes all products.
+     *
+     * @return A ResponseEntity with a success status if all products are deleted, or an internal server error if an exception occurs.
+     */
     @DeleteMapping("/products")
     public ResponseEntity<HttpStatus> deleteAllProducts() {
         try {

@@ -1,5 +1,7 @@
 package com.infy.EcommerceApp.enums;
-
+/**
+ * Enum representing the manufacturer of a product.
+ */
 public enum ProductManufacturer {
     APPLE,
     SAMSUNG,

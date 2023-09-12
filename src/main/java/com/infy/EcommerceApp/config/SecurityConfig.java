@@ -25,15 +25,29 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
+/**
+ * Configuration class for setting up security in the application using Spring Security.
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
     private final RsaKeyProperties keyProperties;
 
+    /**
+     * Constructor to inject the RSA key properties.
+     *
+     * @param keyProperties The RSA key properties.
+     */
     public SecurityConfig(RsaKeyProperties keyProperties) {
         this.keyProperties = keyProperties;
     }
 
+    /**
+     * Defines an in-memory user with username "Alex4ndro5" and the "read" authority.
+     *
+     * @return An InMemoryUserDetailsManager with the configured user.
+     */
     @Bean
     public InMemoryUserDetailsManager user() {
         return new InMemoryUserDetailsManager(
@@ -43,6 +57,14 @@ public class SecurityConfig {
                         .build()
         );
     }
+
+    /**
+     * Configures the security filter chain for HTTP requests.
+     *
+     * @param http The HttpSecurity object to configure security.
+     * @return A SecurityFilterChain with the configured security settings.
+     * @throws Exception If there is an error while configuring security.
+     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
@@ -56,10 +78,22 @@ public class SecurityConfig {
                 .httpBasic(withDefaults())
                 .build();
     }
+
+    /**
+     * Configures a JWT decoder using the public key from the RSA key properties.
+     *
+     * @return A JwtDecoder for verifying JWT tokens.
+     */
     @Bean
     JwtDecoder jwtDecoder() {
         return NimbusJwtDecoder.withPublicKey(keyProperties.publicKey()).build();
     }
+
+    /**
+     * Configures a JWT encoder using the public and private keys from the RSA key properties.
+     *
+     * @return A JwtEncoder for creating JWT tokens.
+     */
     @Bean
     JwtEncoder jwtEncoder() {
         JWK jwk = new RSAKey.Builder(keyProperties.publicKey())
@@ -68,3 +102,4 @@ public class SecurityConfig {
         return new NimbusJwtEncoder(jwks);
     }
 }
+

@@ -8,7 +8,9 @@ import jakarta.validation.constraints.DecimalMin;
 import lombok.*;
 
 import java.math.BigDecimal;
-
+/**
+ * Entity class representing product information.
+ */
 @NoArgsConstructor
 @Data
 @Entity

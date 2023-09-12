@@ -21,6 +21,14 @@ import java.math.BigDecimal;
 class LoadDatabase {
     private static final Logger log = LogManager.getLogger(LoadDatabase.class);
 
+    /**
+     * Initializes the database by populating it with initial data.
+     *
+     * @param productRepository  The repository for managing products.
+     * @param customerRepository The repository for managing customers.
+     * @param orderRepository    The repository for managing orders.
+     * @return A CommandLineRunner that initializes the database.
+     */
     @Bean
     CommandLineRunner initDatabase(ProductRepository productRepository, CustomerRepository customerRepository,
                                    OrderRepository orderRepository) {
