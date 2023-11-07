@@ -4,7 +4,6 @@
 ![Java](https://img.shields.io/badge/Java-17-red)
 ![ELK Stack](https://img.shields.io/badge/ELK%20Stack-7.15.0-blue)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-12.5-blue)
-![License](https://img.shields.io/badge/License-MIT-orange)
 
 This is a Java Spring Boot Rest API project with ELK Stack (Elasticsearch, Logstash, Kibana) implementation, authentication, authorization, and PostgreSQL database integration. It provides a foundation for building RESTful APIs with security and logging capabilities.
 
