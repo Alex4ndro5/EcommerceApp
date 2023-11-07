@@ -43,8 +43,44 @@ git clone https://github.com/Alex4ndro5/EcommerceApp.git
 
 5. Access the API endpoints and explore the functionalities.
 
-## Usage
-Use this section to explain how to use the project once it's up and running. Provide examples of API requests, authentication, and authorization procedures, and how the ELK Stack can be utilized for logging.
+## API Endpoints - order controller example
+
+### 1. Get All Orders
+
+- **Method**: GET
+- **Endpoint**: `/orders`
+- **Description**: Retrieve all orders and return them as a ResponseEntity with HATEOAS links.
+
+### 2. Get Order by ID
+
+- **Method**: GET
+- **Endpoint**: `/orders/{id}`
+- **Description**: Retrieve an order by its ID and return it as a ResponseEntity with HATEOAS links.
+- **Parameters**: 
+  - `id` (Order ID)
+
+### 3. Create a New Order
+
+- **Method**: POST
+- **Endpoint**: `/orders/create`
+- **Description**: Create a new order and return it as a ResponseEntity with HATEOAS links.
+
+### 4. Complete an Order
+
+- **Method**: PUT
+- **Endpoint**: `/orders/{id}/complete`
+- **Description**: Mark an order as completed and return it as a ResponseEntity with HATEOAS links.
+- **Parameters**: 
+  - `id` (Order ID)
+
+### 5. Cancel an Order
+
+- **Method**: DELETE
+- **Endpoint**: `/orders/{id}/cancel`
+- **Description**: Cancel an order and return it as a ResponseEntity with HATEOAS links.
+- **Parameters**: 
+  - `id` (Order ID)
+
 
 ## License
 This project is licensed under the MIT License - see the LICENSE file for details.
