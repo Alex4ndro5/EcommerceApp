@@ -81,9 +81,5 @@ git clone https://github.com/Alex4ndro5/EcommerceApp.git
 - **Parameters**: 
   - `id` (Order ID)
 
-
-## License
-This project is licensed under the MIT License - see the LICENSE file for details.
-
 ## Acknowledgments
 Thanks to the Spring Boot and ELK Stack communities for providing excellent tools and resources.
